@@ -112,39 +112,168 @@
         triangleVertexPositionBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer)
         var vertices = [ //x y z
-          -0.5, 1.5, 0.0,
-          1.0, 1.5, 0.0,
-          -0.5, 1.0, 0.0,
-          1.0, 1.0, 0.0,
-          
-          -0.5, 1.0, 0.0,
-          0.0, 1.0, 0.0,
-          -0.5, 0.5, 0.0,
-          0.0, 0.5, 0.0,
+        // atas
+					-0.5, 1.5, 0.0,
+					1.0, 1.5, 0.0,
+					-0.5, 1.0, 0.0,
+					1.0, 1.0, 0.0,
 
-          -0.5, 0.5, 0.0,
-          1.0, 0.5, 0.0,
-          -0.5, 0.0, 0.0,
-          1.0, 0.0, 0.0,
-          
-          0.5, 0.0, 0.0,
-          1.0, 0.0, 0.0,
-          0.5, -0.5, 0.0,
-          1.0, -0.5, 0.0,
-          
-          -0.5, -0.5, 0.0,
-          1.0, -0.5, 0.0,
-          -0.5, -1.0, 0.0,
-          1.0, -1.0, 0.0
+					-0.5, 1.5, -0.5,
+					1.0, 1.5, -0.5,
+					-0.5, 1.0, -0.5,
+					1.0, 1.0, -0.5,
+
+					-0.5, 1.5, 0.0,
+					-0.5, 1.5, -0.5,
+					1.0, 1.5, 0.0,
+					1.0, 1.5, -0.5,
+
+					1.0, 1.5, 0.0,
+					1.0, 1.5, -0.5,
+					1.0, 1.0, 0.0,
+					1.0, 1.0, -0.5,
+
+					-0.5, 1.0, 0.0,
+					-0.5, 1.0, -0.5,
+					1.0, 1.0, 0.0,
+					1.0, 1.0, -0.5,
+
+					-0.5, 1.5, -0.5,
+					-0.5, 1.5, 0.0,
+					-0.5, 1.0, -0.5,
+					-0.5, 1.0, 0.0,
+					//2          
+					-0.5, 1.0, 0.0,
+					0.0, 1.0, 0.0,
+					-0.5, 0.5, 0.0,
+					0.0, 0.5, 0.0,
+
+					-0.5, 1.0, -0.5,
+					0.0, 1.0, -0.5,
+					-0.5, 0.5, -0.5,
+					0.0, 0.5, -0.5,
+
+					-0.5, 1.0, 0.0,
+					-0.5, 1.0, -0.5,
+					0.0, 1.0, 0.0,
+					0.0, 1.0, -0.5,
+
+					0.0, 1.0, 0.0,
+					0.0, 1.0, -0.5,
+					0.0, 0.5, 0.0,
+					0.0, 0.5, -0.5,
+
+					-0.5, 0.5, 0.0,
+					-0.5, 0.5, -0.5,
+					0.0, 0.5, 0.0,
+					0.0, 0.5, -0.5,
+
+					-0.5, 1.0, -0.5,
+					-0.5, 1.0, 0.0,
+					-0.5, 0.5, -0.5,
+					-0.5, 0.5, 0.0,
+
+					//3
+					-0.5, 0.5, 0.0,
+					1.0, 0.5, 0.0,
+					-0.5, 0.0, 0.0,
+					1.0, 0.0, 0.0,
+
+					-0.5, 0.5, -0.5,
+					1.0, 0.5, -0.5,
+					-0.5, 0.0, -0.5,
+					1.0, 0.0, -0.5,
+
+					-0.5, 0.5, 0.0,
+					-0.5, 0.5, -0.5,
+					1.0, 0.5, 0.0,
+					1.0, 0.5, -0.5,
+
+					1.0, 0.5, 0.0,
+					1.0, 0.5, -0.5,
+					1.0, 0.0, 0.0,
+					1.0, 0.0, -0.5,
+
+					-0.5, 0.0, 0.0,
+					-0.5, 0.0, -0.5,
+					1.0, 0.0, 0.0,
+					1.0, 0.0, -0.5,
+
+					-0.5, 0.5, -0.5,
+					-0.5, 0.5, 0.0,
+					-0.5, 0.0, -0.5,
+					-0.5, 0.0, 0.0,
+
+					//4
+					0.5, 0.0, 0.0,
+					1.0, 0.0, 0.0,
+					0.5, -0.5, 0.0,
+					1.0, -0.5, 0.0,
+
+					0.5, 0.0, -0.5,
+					1.0, 0.0, -0.5,
+					0.5, -0.5, -0.5,
+					1.0, -0.5, -0.5,
+
+					0.5, 0.0, 0.0,
+					0.5, 0.0, -0.5,
+					1.0, 0.0, 0.0,
+					1.0, 0.0, -0.5,
+
+					1.0, 0.0, 0.0,
+					1.0, 0.0, -0.5,
+					1.0, -0.5, 0.0,
+					1.0, -0.5, -0.5,
+
+					0.5, -0.5, 0.0,
+					0.5, -0.5, -0.5,
+					1.0, -0.5, 0.0,
+					1.0, -0.5, -0.5,
+
+					0.5, 0.0, 0.0,
+					0.5, 0.0, -0.5,
+					0.5, -0.5, 0.0,
+					0.5, -0.5, -0.5,
+
+					//5
+					-0.5, -0.5, 0.0,
+					1.0, -0.5, 0.0,
+					-0.5, -1.0, 0.0,
+					1.0, -1.0, 0.0,
+
+					-0.5, -0.5, -0.5,
+					1.0, -0.5, -0.5,
+					-0.5, -1.0, -0.5,
+					1.0, -1.0, -0.5,
+
+					-0.5, -0.5, 0.0,
+					-0.5, -0.5, -0.5,
+					1.0, -0.5, 0.0,
+					1.0, -0.5, -0.5,
+
+					1.0, -0.5, 0.0,
+					1.0, -0.5, -0.5,
+					1.0, -1.0, 0.0,
+					1.0, -1.0, -0.5,
+
+					-0.5, -1.0, 0.0,
+					-0.5, -1.0, -0.5,
+					1.0, -1.0, 0.0,
+					1.0, -1.0, -0.5,
+
+					-0.5, -0.5, -0.5,
+					-0.5, -0.5, 0.0,
+					-0.5, -1.0, -0.5,
+					-0.5, -1.0, 0.0,
         ]
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
         triangleVertexPositionBuffer.itemSize = 3
-        triangleVertexPositionBuffer.numItems = 20
+        triangleVertexPositionBuffer.numItems = 120
         // S Color
         triangleVertexColorBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer)
         var colors = []// r g b opacity
-        for (var i=0; i < 5; i++) {
+        for (var i=0; i < 30; i++) {
           colors = colors.concat([0.9, 0.2, 0.3, 1.0]);
           colors = colors.concat([0.8, 0.5, 0.3, 1.0]);
           colors = colors.concat([0.8, 0.1, 0.6, 1.0]);
@@ -157,10 +286,7 @@
         squareVertexPositionBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer)
         vertices = [
-          -0.5,  1.5,  0.0,
-          0.0, 1.5,  0.0,
-          -0.5, -1.5, 0.0,
-          0.0,  -1.5, 0.0
+        
         ]
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
         squareVertexPositionBuffer.itemSize = 3
@@ -169,12 +295,7 @@
         squareVertexColorBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer);
         colors = [];
-        for (var i=0; i < 4; i++) {
-          colors = colors.concat([0.9, 0.2, 0.3, 1.0]);
-          colors = colors.concat([0.8, 0.5, 0.3, 1.0]);
-          colors = colors.concat([0.8, 0.1, 0.6, 1.0]);
-          colors = colors.concat([1.0, 0.8, 0.3, 1.0]);
-        }
+
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
         squareVertexColorBuffer.itemSize = 4;
         squareVertexColorBuffer.numItems = 4;
@@ -186,9 +307,9 @@
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
         mat4.perspective(pMatrix, glMatrix.toRadian(45), gl.viewportWidth / gl.viewportHeight, 0.1, 100.0)
         mat4.identity(mvMatrix)
-        mat4.translate(mvMatrix, mvMatrix, [0.0, 2.0, -10.0])
+        mat4.translate(mvMatrix, mvMatrix, [0.0, 0.0, -10.0])
         mvPushMatrix()
-        mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rTri), [1.0, 0.0, 0.0])
+        mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rTri), [0.0, 1.0, 0.0])
         //mat4.rotateY(mvMatrix, mvMatrix, glMatrix.toRadian(rTri))
         gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer)
         gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0)
@@ -236,6 +357,8 @@
     </script>
   </head>
   <body onload="webGLStart();">
-    <canvas id="mycanvas" style="border: none" width="500" height="500"></canvas>
+    <div style="text-align: center;">
+    <canvas id="mycanvas" style="border: none;" width="1000" height="600"></canvas>
+    </div>
   </body>
 </html>
