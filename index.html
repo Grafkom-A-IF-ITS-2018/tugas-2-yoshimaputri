@@ -103,175 +103,195 @@
         gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix)
         gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix)
       }
-      var triangleVertexPositionBuffer
-      var triangleVertexColorBuffer
-      var squareVertexPositionBuffer
-      var squareVertexColorBuffer
+
+      var sVertexPositionBuffer
+      var sVertexColorBuffer
+      var cubeVertexPositionBuffer
+      var cubeVertexColorBuffer
+      var sBound = []
+      var ss
+      var cBound = []
+      var cb
+
       function initBuffers() {
         // huruf S
-        triangleVertexPositionBuffer = gl.createBuffer()
-        gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer)
-        var vertices = [ //x y z
+        sVertexPositionBuffer = gl.createBuffer()
+        gl.bindBuffer(gl.ARRAY_BUFFER, sVertexPositionBuffer)
+        var sVertices = [ //x y z
         // atas
-					-0.5, 1.5, 0.0,
-					1.0, 1.5, 0.0,
-					-0.5, 1.0, 0.0,
-					1.0, 1.0, 0.0,
+          -0.5, 1.5, 0.0,
+          1.0, 1.5, 0.0,
+          -0.5, 1.0, 0.0,
+          1.0, 1.0, 0.0,
 
-					-0.5, 1.5, -0.5,
-					1.0, 1.5, -0.5,
-					-0.5, 1.0, -0.5,
-					1.0, 1.0, -0.5,
+          -0.5, 1.5, -0.5,
+          1.0, 1.5, -0.5,
+          -0.5, 1.0, -0.5,
+          1.0, 1.0, -0.5,
 
-					-0.5, 1.5, 0.0,
-					-0.5, 1.5, -0.5,
-					1.0, 1.5, 0.0,
-					1.0, 1.5, -0.5,
+          -0.5, 1.5, 0.0,
+          -0.5, 1.5, -0.5,
+          1.0, 1.5, 0.0,
+          1.0, 1.5, -0.5,
 
-					1.0, 1.5, 0.0,
-					1.0, 1.5, -0.5,
-					1.0, 1.0, 0.0,
-					1.0, 1.0, -0.5,
+          1.0, 1.5, 0.0,
+          1.0, 1.5, -0.5,
+          1.0, 1.0, 0.0,
+          1.0, 1.0, -0.5,
 
-					-0.5, 1.0, 0.0,
-					-0.5, 1.0, -0.5,
-					1.0, 1.0, 0.0,
-					1.0, 1.0, -0.5,
+          -0.5, 1.0, 0.0,
+          -0.5, 1.0, -0.5,
+          1.0, 1.0, 0.0,
+          1.0, 1.0, -0.5,
 
-					-0.5, 1.5, -0.5,
-					-0.5, 1.5, 0.0,
-					-0.5, 1.0, -0.5,
-					-0.5, 1.0, 0.0,
-					//2          
-					-0.5, 1.0, 0.0,
-					0.0, 1.0, 0.0,
-					-0.5, 0.5, 0.0,
-					0.0, 0.5, 0.0,
+          -0.5, 1.5, -0.5,
+          -0.5, 1.5, 0.0,
+          -0.5, 1.0, -0.5,
+          -0.5, 1.0, 0.0,
+          //2          
+          -0.5, 1.0, 0.0,
+          0.0, 1.0, 0.0,
+          -0.5, 0.5, 0.0,
+          0.0, 0.5, 0.0,
 
-					-0.5, 1.0, -0.5,
-					0.0, 1.0, -0.5,
-					-0.5, 0.5, -0.5,
-					0.0, 0.5, -0.5,
+          -0.5, 1.0, -0.5,
+          0.0, 1.0, -0.5,
+          -0.5, 0.5, -0.5,
+          0.0, 0.5, -0.5,
 
-					-0.5, 1.0, 0.0,
-					-0.5, 1.0, -0.5,
-					0.0, 1.0, 0.0,
-					0.0, 1.0, -0.5,
+          -0.5, 1.0, 0.0,
+          -0.5, 1.0, -0.5,
+          0.0, 1.0, 0.0,
+          0.0, 1.0, -0.5,
 
-					0.0, 1.0, 0.0,
-					0.0, 1.0, -0.5,
-					0.0, 0.5, 0.0,
-					0.0, 0.5, -0.5,
+          0.0, 1.0, 0.0,
+          0.0, 1.0, -0.5,
+          0.0, 0.5, 0.0,
+          0.0, 0.5, -0.5,
 
-					-0.5, 0.5, 0.0,
-					-0.5, 0.5, -0.5,
-					0.0, 0.5, 0.0,
-					0.0, 0.5, -0.5,
+          -0.5, 0.5, 0.0,
+          -0.5, 0.5, -0.5,
+          0.0, 0.5, 0.0,
+          0.0, 0.5, -0.5,
 
-					-0.5, 1.0, -0.5,
-					-0.5, 1.0, 0.0,
-					-0.5, 0.5, -0.5,
-					-0.5, 0.5, 0.0,
+          -0.5, 1.0, -0.5,
+          -0.5, 1.0, 0.0,
+          -0.5, 0.5, -0.5,
+          -0.5, 0.5, 0.0,
 
-					//3
-					-0.5, 0.5, 0.0,
-					1.0, 0.5, 0.0,
-					-0.5, 0.0, 0.0,
-					1.0, 0.0, 0.0,
+          //3
+          -0.5, 0.5, 0.0,
+          1.0, 0.5, 0.0,
+          -0.5, 0.0, 0.0,
+          1.0, 0.0, 0.0,
 
-					-0.5, 0.5, -0.5,
-					1.0, 0.5, -0.5,
-					-0.5, 0.0, -0.5,
-					1.0, 0.0, -0.5,
+          -0.5, 0.5, -0.5,
+          1.0, 0.5, -0.5,
+          -0.5, 0.0, -0.5,
+          1.0, 0.0, -0.5,
 
-					-0.5, 0.5, 0.0,
-					-0.5, 0.5, -0.5,
-					1.0, 0.5, 0.0,
-					1.0, 0.5, -0.5,
+          -0.5, 0.5, 0.0,
+          -0.5, 0.5, -0.5,
+          1.0, 0.5, 0.0,
+          1.0, 0.5, -0.5,
 
-					1.0, 0.5, 0.0,
-					1.0, 0.5, -0.5,
-					1.0, 0.0, 0.0,
-					1.0, 0.0, -0.5,
+          1.0, 0.5, 0.0,
+          1.0, 0.5, -0.5,
+          1.0, 0.0, 0.0,
+          1.0, 0.0, -0.5,
 
-					-0.5, 0.0, 0.0,
-					-0.5, 0.0, -0.5,
-					1.0, 0.0, 0.0,
-					1.0, 0.0, -0.5,
+          -0.5, 0.0, 0.0,
+          -0.5, 0.0, -0.5,
+          1.0, 0.0, 0.0,
+          1.0, 0.0, -0.5,
 
-					-0.5, 0.5, -0.5,
-					-0.5, 0.5, 0.0,
-					-0.5, 0.0, -0.5,
-					-0.5, 0.0, 0.0,
+          -0.5, 0.5, -0.5,
+          -0.5, 0.5, 0.0,
+          -0.5, 0.0, -0.5,
+          -0.5, 0.0, 0.0,
 
-					//4
-					0.5, 0.0, 0.0,
-					1.0, 0.0, 0.0,
-					0.5, -0.5, 0.0,
-					1.0, -0.5, 0.0,
+          //4
+          0.5, 0.0, 0.0,
+          1.0, 0.0, 0.0,
+          0.5, -0.5, 0.0,
+          1.0, -0.5, 0.0,
 
-					0.5, 0.0, -0.5,
-					1.0, 0.0, -0.5,
-					0.5, -0.5, -0.5,
-					1.0, -0.5, -0.5,
+          0.5, 0.0, -0.5,
+          1.0, 0.0, -0.5,
+          0.5, -0.5, -0.5,
+          1.0, -0.5, -0.5,
 
-					0.5, 0.0, 0.0,
-					0.5, 0.0, -0.5,
-					1.0, 0.0, 0.0,
-					1.0, 0.0, -0.5,
+          0.5, 0.0, 0.0,
+          0.5, 0.0, -0.5,
+          1.0, 0.0, 0.0,
+          1.0, 0.0, -0.5,
 
-					1.0, 0.0, 0.0,
-					1.0, 0.0, -0.5,
-					1.0, -0.5, 0.0,
-					1.0, -0.5, -0.5,
+          1.0, 0.0, 0.0,
+          1.0, 0.0, -0.5,
+          1.0, -0.5, 0.0,
+          1.0, -0.5, -0.5,
 
-					0.5, -0.5, 0.0,
-					0.5, -0.5, -0.5,
-					1.0, -0.5, 0.0,
-					1.0, -0.5, -0.5,
+          0.5, -0.5, 0.0,
+          0.5, -0.5, -0.5,
+          1.0, -0.5, 0.0,
+          1.0, -0.5, -0.5,
 
-					0.5, 0.0, 0.0,
-					0.5, 0.0, -0.5,
-					0.5, -0.5, 0.0,
-					0.5, -0.5, -0.5,
+          0.5, 0.0, 0.0,
+          0.5, 0.0, -0.5,
+          0.5, -0.5, 0.0,
+          0.5, -0.5, -0.5,
 
-					//5
-					-0.5, -0.5, 0.0,
-					1.0, -0.5, 0.0,
-					-0.5, -1.0, 0.0,
-					1.0, -1.0, 0.0,
+          //5
+          -0.5, -0.5, 0.0,
+          1.0, -0.5, 0.0,
+          -0.5, -1.0, 0.0,
+          1.0, -1.0, 0.0,
 
-					-0.5, -0.5, -0.5,
-					1.0, -0.5, -0.5,
-					-0.5, -1.0, -0.5,
-					1.0, -1.0, -0.5,
+          -0.5, -0.5, -0.5,
+          1.0, -0.5, -0.5,
+          -0.5, -1.0, -0.5,
+          1.0, -1.0, -0.5,
 
-					-0.5, -0.5, 0.0,
-					-0.5, -0.5, -0.5,
-					1.0, -0.5, 0.0,
-					1.0, -0.5, -0.5,
+          -0.5, -0.5, 0.0,
+          -0.5, -0.5, -0.5,
+          1.0, -0.5, 0.0,
+          1.0, -0.5, -0.5,
 
-					1.0, -0.5, 0.0,
-					1.0, -0.5, -0.5,
-					1.0, -1.0, 0.0,
-					1.0, -1.0, -0.5,
+          1.0, -0.5, 0.0,
+          1.0, -0.5, -0.5,
+          1.0, -1.0, 0.0,
+          1.0, -1.0, -0.5,
 
-					-0.5, -1.0, 0.0,
-					-0.5, -1.0, -0.5,
-					1.0, -1.0, 0.0,
-					1.0, -1.0, -0.5,
+          -0.5, -1.0, 0.0,
+          -0.5, -1.0, -0.5,
+          1.0, -1.0, 0.0,
+          1.0, -1.0, -0.5,
 
-					-0.5, -0.5, -0.5,
-					-0.5, -0.5, 0.0,
-					-0.5, -1.0, -0.5,
-					-0.5, -1.0, 0.0,
+          -0.5, -0.5, -0.5,
+          -0.5, -0.5, 0.0,
+          -0.5, -1.0, -0.5,
+          -0.5, -1.0, 0.0,
         ]
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
-        triangleVertexPositionBuffer.itemSize = 3
-        triangleVertexPositionBuffer.numItems = 120
+
+        sBound = [
+          [-0.5, 1.5, 0.0, 1.0],
+          [1.0, 1.5, 0.0, 1.0],
+          
+          [-0.5, 1.5, -0.5, 1.0],
+          [1.0, 1.5, -0.5, 1.0],
+          
+          [1.0, -1.0, 0.0, 1.0],
+          [1.0, -1.0, -0.5, 1.0],
+          [-0.5, -1.0, 0.0, 1.0],
+          [-0.5, -1.0, -0.5, 1.0],
+        ]
+
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(sVertices), gl.STATIC_DRAW)
+        sVertexPositionBuffer.itemSize = 3
+        sVertexPositionBuffer.numItems = 120
         // S Color
-        triangleVertexColorBuffer = gl.createBuffer()
-        gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer)
+        sVertexColorBuffer = gl.createBuffer()
+        gl.bindBuffer(gl.ARRAY_BUFFER, sVertexColorBuffer)
         var colors = []// r g b opacity
         for (var i=0; i < 30; i++) {
           colors = colors.concat([0.9, 0.2, 0.3, 1.0]);
@@ -280,55 +300,156 @@
           colors = colors.concat([1.0, 0.8, 0.3, 1.0]);
         }
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)
-        triangleVertexColorBuffer.itemSize = 4
-        triangleVertexColorBuffer.numItems = 20
-        // huruf I
-        squareVertexPositionBuffer = gl.createBuffer()
-        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer)
-        vertices = [
-        
-        ]
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
-        squareVertexPositionBuffer.itemSize = 3
-        squareVertexPositionBuffer.numItems = 4
-        // I Color
-        squareVertexColorBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer);
-        colors = [];
+        sVertexColorBuffer.itemSize = 4
+        sVertexColorBuffer.numItems = 20
+        // cube
+        cubeVertexPositionBuffer = gl.createBuffer()
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer)
+        cVertices = [
+        //depan
+          -4.0, 8.0, 0.0,
+          4.0, 8.0, 0.0,
 
+          -4.0, 8.0, 0.0,
+          -4.0, 0.0, 0.0,
+
+          -4.0, 0.0, 0.0,
+          4.0, 0.0, 0.0,
+
+          4.0, 0.0, 0.0,
+          4.0, 8.0, 0.0,
+          //belakang
+          -4.0, 8.0, -4.0,
+          4.0, 8.0, -4.0,
+
+          -4.0, 8.0, -4.0,
+          -4.0, 0.0, -4.0,
+
+          -4.0, 0.0, -4.0,
+          4.0, 0.0, -4.0,
+
+          4.0, 0.0, -4.0,
+          4.0, 8.0, -4.0,
+          //
+          -4.0, 8.0, 0.0,
+          -4.0, 8.0, -4.0,
+
+          4.0, 8.0, 0.0,
+          4.0, 8.0, -4.0,
+
+          -4.0, 0.0, 0.0,
+          -4.0, 0.0, -4.0,
+
+          4.0, 0.0, 0.0,
+          4.0, 0.0, -4.0
+        ]
+
+        cBound = [
+          [-4.0, 8.0, 0.0, 1.0],
+          [4.0, 8.0, 0.0, 1.0],
+          [4.0, 0.0, 0.0, 1.0],
+          [-4.0, 0.0, 0.0, 1.0],
+
+          [-4.0, 8.0, -4.0, 1.0],
+          [4.0, 8.0, -4.0, 1.0],
+          [-4.0, 0.0, -4.0, 1.0],
+          [4.0, 0.0, -4.0, 1.0]
+        ]
+
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cVertices), gl.STATIC_DRAW)
+        cubeVertexPositionBuffer.itemSize = 3
+        cubeVertexPositionBuffer.numItems = 24
+        // cube color
+        cubeVertexColorBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexColorBuffer);
+        colors = [];
+        for (var i=0; i < 10; i++) {
+          colors = colors.concat([0.9, 0.2, 0.3, 1.0]);
+          colors = colors.concat([0.8, 0.5, 0.3, 1.0]);
+          colors = colors.concat([0.8, 0.1, 0.6, 1.0]);
+          colors = colors.concat([1.0, 0.8, 0.3, 1.0]);
+        }
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
-        squareVertexColorBuffer.itemSize = 4;
-        squareVertexColorBuffer.numItems = 4;
+        cubeVertexColorBuffer.itemSize = 4;
+        cubeVertexColorBuffer.numItems = 4;
       }
+      var xDirect = yDirect = zDirect = 1.0
+      var rot
+      function cekCollision(sMat, cMat) {
+        console.log(xDirect, yDirect, zDirect)
+        for (var i = 0; i < sMat.length; i++) {
+          if (sMat[i][0] >= cMat[1][0]) { //x to right
+            if (xDirect > 0) {
+              xDirect = xDirect * (-1.0)
+              rot *= -1.0
+            }
+          } 
+        }
+      }
+
+      function matrixMul(mv, l) {
+        var x = mv[0]*l[0] + mv[4]*l[1] + mv[8]*l[2] + mv[12]*l[3]
+        var y = mv[1]*l[0] + mv[5]*l[1] + mv[9]*l[2] + mv[13]*l[3]
+        var z = mv[2]*l[0] + mv[6]*l[1] + mv[10]*l[2] + mv[14]*l[3]
+        var i = mv[3]*l[0] + mv[7]*l[1] + mv[11]*l[2] + mv[15]*l[3]
+        console.log('after', x,y,z,i)
+        return [x, y, z, i]
+      }
+
       var rTri = 0
-      var rSquare = 0
+      var rcube = 0
+      a=0.0, b=0.0, c=-15.0
       function drawScene() {
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight)
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
         mat4.perspective(pMatrix, glMatrix.toRadian(45), gl.viewportWidth / gl.viewportHeight, 0.1, 100.0)
         mat4.identity(mvMatrix)
-        mat4.translate(mvMatrix, mvMatrix, [0.0, 0.0, -10.0])
+        //huruf
+        mat4.translate(mvMatrix, mvMatrix, [0.0, 0.0, -15.0])
         mvPushMatrix()
+        mat4.translate(mvMatrix, mvMatrix, [a, b, c])
         mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rTri), [0.0, 1.0, 0.0])
-        //mat4.rotateY(mvMatrix, mvMatrix, glMatrix.toRadian(rTri))
-        gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer)
-        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0)
-        gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer)
-        gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, triangleVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0)
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, sVertexPositionBuffer)
+        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, sVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0)
+        gl.bindBuffer(gl.ARRAY_BUFFER, sVertexColorBuffer)
+        gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, sVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0)
+        sMat = []
+        for (var x = 0 ; x < sBound.length ; x++){
+          ss = matrixMul(mvMatrix, sBound[x])
+          sMat.push(ss)
+        }
+
         setMatrixUniforms()
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, triangleVertexPositionBuffer.numItems)
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, sVertexPositionBuffer.numItems)
         mvPopMatrix()
-        mat4.translate(mvMatrix, mvMatrix, [0.0, -4.0, 0.0])
+        //cube
+        mat4.translate(mvMatrix, mvMatrix, [0.0, -4.0, 5.0])
         mvPushMatrix()
-        mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rSquare), [0.0, 1.0, 0.0])
-        //mat4.rotateX(mvMatrix, mvMatrix, glMatrix.toRadian(rSquare))
-        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer)
-        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0)
-        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer)
-        gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, squareVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0)
+        mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rcube), [0.0, 0.0, 0.0])
+        //mat4.rotateX(mvMatrix, mvMatrix, glMatrix.toRadian(rcube))
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer)
+        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cubeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0)
+        gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexColorBuffer)
+        gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, cubeVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0)
+
         setMatrixUniforms()
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, squareVertexPositionBuffer.numItems)
+        gl.drawArrays(gl.LINES, 0, cubeVertexPositionBuffer.numItems)
         mvPopMatrix()
+        cMat = []
+        for (var y = 0 ; y <cBound.length ; y++){
+          cb = matrixMul(mvMatrix, cBound[y])
+          cMat.push(cb)
+        }
+        console.log('before',a,b,c)
+        cekCollision(sMat, cMat)
+      }
+      //gerak pas di animate (real time)
+      function mobile(){
+        a+=0.05 * xDirect
+        b-=0.05 * yDirect 
+        c+=0.05 * zDirect
+        //rTri += (90 * elapsed) / 1000.0 * rot
       }
       var lastTime = 0
       function animate() {
@@ -336,7 +457,7 @@
         if (lastTime != 0) {
           var elapsed = timeNow - lastTime
           rTri += (90 * elapsed) / 1000.0
-          rSquare += (75 * elapsed) / 1000.0
+          mobile()
         }
         lastTime = timeNow
       }
