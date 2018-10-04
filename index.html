@@ -373,17 +373,59 @@
         cubeVertexColorBuffer.itemSize = 4;
         cubeVertexColorBuffer.numItems = 4;
       }
-      var xDirect = yDirect = zDirect = 1.0
-      var rot
+      
+      var xDirect = 1.0, yDirect = 1.0, zDirect = 1.0
+      var rot = 1.0
+
       function cekCollision(sMat, cMat) {
-        console.log(xDirect, yDirect, zDirect)
+        //console.log(xDirect, yDirect, zDirect)
         for (var i = 0; i < sMat.length; i++) {
           if (sMat[i][0] >= cMat[1][0]) { //x to right
             if (xDirect > 0) {
               xDirect = xDirect * (-1.0)
               rot *= -1.0
             }
+          }
+        }
+        for (var i = 0; i < sMat.length; i++) {
+          if (sMat[i][0] <= cMat[0][0]) { // x to left
+            if (xDirect < 0) {
+              xDirect = xDirect*(-1.0)
+              rot *= -1.0
+            }
           } 
+        }
+        for (var i = 0; i < sMat.length; i++) {
+          if (sMat[i][1] >= cMat[1][1]) { // y to top
+            if (yDirect > 0) {
+              yDirect = yDirect*(-1.0)
+              rot *= -1.0
+            }
+          }
+        }
+        for (var i = 0; i < sMat.length; i++) {
+          if (sMat[i][1] <= cMat[2][1]) { // y to bott
+            if (yDirect < 0) {
+              yDirect = yDirect*(-1.0)
+              rot *= -1.0
+            }
+          }
+        }
+        for (var i = 0; i < sMat.length; i++) {
+          if (sMat[i][2] >= cMat[0][2]) {// z to behind
+            if (zDirect > 0) {
+              zDirect = zDirect*(-1.0)
+              rot *= -1.0
+            }
+          }
+        }
+        for (var i = 0; i < sMat.length; i++) {
+          if (sMat[i][2] <= cMat[4][2]) { // z to front
+            if (zDirect < 0) {
+              zDirect = zDirect*(-1.0)
+              rot *= -1.0
+            }
+          }
         }
       }
 
@@ -392,13 +434,13 @@
         var y = mv[1]*l[0] + mv[5]*l[1] + mv[9]*l[2] + mv[13]*l[3]
         var z = mv[2]*l[0] + mv[6]*l[1] + mv[10]*l[2] + mv[14]*l[3]
         var i = mv[3]*l[0] + mv[7]*l[1] + mv[11]*l[2] + mv[15]*l[3]
-        console.log('after', x,y,z,i)
+        //console.log('after', x,y,z,i)
         return [x, y, z, i]
       }
 
       var rTri = 0
       var rcube = 0
-      a=0.0, b=0.0, c=-15.0
+      a=0.0, b=0.0, c=0.0
       function drawScene() {
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight)
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
@@ -433,30 +475,31 @@
         gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexColorBuffer)
         gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, cubeVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0)
 
-        setMatrixUniforms()
-        gl.drawArrays(gl.LINES, 0, cubeVertexPositionBuffer.numItems)
-        mvPopMatrix()
         cMat = []
         for (var y = 0 ; y <cBound.length ; y++){
           cb = matrixMul(mvMatrix, cBound[y])
           cMat.push(cb)
         }
-        console.log('before',a,b,c)
+
+        setMatrixUniforms()
+        gl.drawArrays(gl.LINES, 0, cubeVertexPositionBuffer.numItems)
+        mvPopMatrix()
+        
+        //console.log('before',a,b,c)
         cekCollision(sMat, cMat)
       }
       //gerak pas di animate (real time)
       function mobile(){
         a+=0.05 * xDirect
-        b-=0.05 * yDirect 
+        b+=0.05 * yDirect 
         c+=0.05 * zDirect
-        //rTri += (90 * elapsed) / 1000.0 * rot
       }
       var lastTime = 0
       function animate() {
         var timeNow = new Date().getTime()
         if (lastTime != 0) {
           var elapsed = timeNow - lastTime
-          rTri += (90 * elapsed) / 1000.0
+          rTri += (90 * elapsed) / 1000.0 * rot
           mobile()
         }
         lastTime = timeNow
